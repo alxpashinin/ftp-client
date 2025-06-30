@@ -1,0 +1,15 @@
+{
+    "@@locale": "en",
+    "textFieldHintServer": "Server",
+    "@textFieldHintServer": {},
+    "textFieldHintUsername": "Username",
+    "@textFieldHintUsername": {},
+    "textFieldHintPassword": "Password",
+    "@textFieldHintPassword": {},
+    "buttonTextConnect": "Connect",
+    "@buttonTextConnect": {},
+    "validatorTextFieldIsEmpty": "Field is empty",
+    "@validatorTextFieldIsEmpty": {},
+    "snackBarFTPConnectFailed": "Something got wrong",
+    "@snackBarFTPConnectFailed": {}
+}
