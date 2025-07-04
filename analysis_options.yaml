@@ -81,7 +81,6 @@ dart_code_linter:
     - prefer-const-border-radius
     - prefer-correct-edge-insets-constructor
     - prefer-enums-by-name
-    - prefer-extracting-callbacks
     - prefer-first
     - prefer-immediate-return
     - prefer-iterable-of
