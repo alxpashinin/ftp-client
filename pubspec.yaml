@@ -20,14 +20,23 @@ dependencies:
   intl: ^0.20.2
   logger: ^2.6.0
   provider: ^6.1.5
+  shared_preferences: ^2.5.3
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
+  drift: ^2.27.0
+  drift_flutter: ^0.2.4
+  path_provider: ^2.1.5
 
 dev_dependencies:
   auto_route_generator: ^10.0.1
-  build_runner: ^2.4.15
+  build_runner: ^2.5.4
   dart_code_linter: ^2.0.0
+  drift_dev: ^2.27.0
   flutter_gen: ^5.10.0
   flutter_test:
     sdk: flutter
+  freezed: ^3.1.0
+  json_serializable: ^6.9.5
 
 dependency_overrides:
   analyzer_plugin: ^0.12.0

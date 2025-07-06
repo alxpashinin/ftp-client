@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftp/core/data/ftp/ftp_client.dart';
+import 'package:ftp/core/data/storage/storage_repostory.dart';
 import 'package:ftp/core/extensions/build_context.dart';
 import 'package:ftp/core/utils/validator.dart';
 import 'package:ftp/features/new_connection/bloc/new_connection_bloc.dart';
@@ -17,6 +18,7 @@ class NewConnectionScreen extends StatefulWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) => BlocProvider<NewConnectionBloc>(
         create: (context) => NewConnectionBloc(
           ftpClient: context.read<FtpClient>(),
+          ftpStorage: context.read<StorageRepostory>(),
         ),
         child: this,
       );
@@ -40,7 +42,7 @@ class _NewConnectionScreenState extends State<NewConnectionScreen> {
                 when ftpConnectResult == FtpConnectResult.success:
               return;
             case NewConnectionSuccess(:final ftpConnectResult)
-                when ftpConnectResult == FtpConnectResult.failed:
+                when ftpConnectResult == FtpConnectResult.failure:
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(context.loc.snackBarFTPConnectFailed)),
               );

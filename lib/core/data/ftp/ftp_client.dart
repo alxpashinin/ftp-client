@@ -1,6 +1,6 @@
 enum FtpConnectResult {
   success,
-  failed,
+  failure,
 }
 
 abstract interface class FtpClient {
@@ -13,5 +13,8 @@ abstract interface class FtpClient {
     required String password,
   });
 
-  Future<void> disconnect();
+  /// Disconnect from the current FTP server
+  ///
+  /// Return [true] is success, overwise return [false]
+  Future<bool> disconnect();
 }

@@ -23,7 +23,7 @@ class NewConnectionRoute extends _i2.PageRouteInfo<void> {
   static _i2.PageInfo page = _i2.PageInfo(
     name,
     builder: (data) {
-      return const _i1.NewConnectionScreen();
+      return _i2.WrappedRoute(child: const _i1.NewConnectionScreen());
     },
   );
 }
