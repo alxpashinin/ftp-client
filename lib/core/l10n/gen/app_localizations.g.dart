@@ -129,6 +129,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something got wrong'**
   String get snackBarFTPConnectFailed;
+
+  /// No description provided for @connectionListIsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No available connections'**
+  String get connectionListIsEmpty;
 }
 
 class _AppLocalizationsDelegate

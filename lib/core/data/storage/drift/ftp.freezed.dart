@@ -14,9 +14,11 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$FtpCreds {
+  int get id;
   String get server;
   String get username;
   String get password;
+  DateTime get createdAt;
 
   /// Create a copy of FtpCreds
   /// with the given fields replaced by the non-null parameter values.
@@ -30,19 +32,23 @@ mixin _$FtpCreds {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is FtpCreds &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.server, server) || other.server == server) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, server, username, password);
+  int get hashCode =>
+      Object.hash(runtimeType, id, server, username, password, createdAt);
 
   @override
   String toString() {
-    return 'FtpCreds(server: $server, username: $username, password: $password)';
+    return 'FtpCreds(id: $id, server: $server, username: $username, password: $password, createdAt: $createdAt)';
   }
 }
 
@@ -51,7 +57,12 @@ abstract mixin class $FtpCredsCopyWith<$Res> {
   factory $FtpCredsCopyWith(FtpCreds value, $Res Function(FtpCreds) _then) =
       _$FtpCredsCopyWithImpl;
   @useResult
-  $Res call({String server, String username, String password});
+  $Res call(
+      {int id,
+      String server,
+      String username,
+      String password,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -66,11 +77,17 @@ class _$FtpCredsCopyWithImpl<$Res> implements $FtpCredsCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? server = null,
     Object? username = null,
     Object? password = null,
+    Object? createdAt = null,
   }) {
     return _then(_self.copyWith(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       server: null == server
           ? _self.server
           : server // ignore: cast_nullable_to_non_nullable
@@ -83,6 +100,10 @@ class _$FtpCredsCopyWithImpl<$Res> implements $FtpCredsCopyWith<$Res> {
           ? _self.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -180,14 +201,16 @@ extension FtpCredsPatterns on FtpCreds {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String server, String username, String password)?
+    TResult Function(int id, String server, String username, String password,
+            DateTime createdAt)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _FtpCreds() when $default != null:
-        return $default(_that.server, _that.username, _that.password);
+        return $default(_that.id, _that.server, _that.username, _that.password,
+            _that.createdAt);
       case _:
         return orElse();
     }
@@ -208,12 +231,15 @@ extension FtpCredsPatterns on FtpCreds {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String server, String username, String password) $default,
+    TResult Function(int id, String server, String username, String password,
+            DateTime createdAt)
+        $default,
   ) {
     final _that = this;
     switch (_that) {
       case _FtpCreds():
-        return $default(_that.server, _that.username, _that.password);
+        return $default(_that.id, _that.server, _that.username, _that.password,
+            _that.createdAt);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -233,13 +259,15 @@ extension FtpCredsPatterns on FtpCreds {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String server, String username, String password)?
+    TResult? Function(int id, String server, String username, String password,
+            DateTime createdAt)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _FtpCreds() when $default != null:
-        return $default(_that.server, _that.username, _that.password);
+        return $default(_that.id, _that.server, _that.username, _that.password,
+            _that.createdAt);
       case _:
         return null;
     }
@@ -250,14 +278,22 @@ extension FtpCredsPatterns on FtpCreds {
 
 class _FtpCreds implements FtpCreds {
   const _FtpCreds(
-      {required this.server, required this.username, required this.password});
+      {required this.id,
+      required this.server,
+      required this.username,
+      required this.password,
+      required this.createdAt});
 
+  @override
+  final int id;
   @override
   final String server;
   @override
   final String username;
   @override
   final String password;
+  @override
+  final DateTime createdAt;
 
   /// Create a copy of FtpCreds
   /// with the given fields replaced by the non-null parameter values.
@@ -272,19 +308,23 @@ class _FtpCreds implements FtpCreds {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _FtpCreds &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.server, server) || other.server == server) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, server, username, password);
+  int get hashCode =>
+      Object.hash(runtimeType, id, server, username, password, createdAt);
 
   @override
   String toString() {
-    return 'FtpCreds(server: $server, username: $username, password: $password)';
+    return 'FtpCreds(id: $id, server: $server, username: $username, password: $password, createdAt: $createdAt)';
   }
 }
 
@@ -295,7 +335,12 @@ abstract mixin class _$FtpCredsCopyWith<$Res>
       __$FtpCredsCopyWithImpl;
   @override
   @useResult
-  $Res call({String server, String username, String password});
+  $Res call(
+      {int id,
+      String server,
+      String username,
+      String password,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -310,11 +355,17 @@ class __$FtpCredsCopyWithImpl<$Res> implements _$FtpCredsCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
+    Object? id = null,
     Object? server = null,
     Object? username = null,
     Object? password = null,
+    Object? createdAt = null,
   }) {
     return _then(_FtpCreds(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       server: null == server
           ? _self.server
           : server // ignore: cast_nullable_to_non_nullable
@@ -327,6 +378,10 @@ class __$FtpCredsCopyWithImpl<$Res> implements _$FtpCredsCopyWith<$Res> {
           ? _self.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }

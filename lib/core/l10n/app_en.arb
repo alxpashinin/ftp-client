@@ -11,5 +11,7 @@
     "validatorTextFieldIsEmpty": "Field is empty",
     "@validatorTextFieldIsEmpty": {},
     "snackBarFTPConnectFailed": "Something got wrong",
-    "@snackBarFTPConnectFailed": {}
+    "@snackBarFTPConnectFailed": {},
+    "connectionListIsEmpty": "No available connections",
+    "@connectionListIsEmpty": {}
 }

@@ -25,4 +25,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get snackBarFTPConnectFailed => 'Something got wrong';
+
+  @override
+  String get connectionListIsEmpty => 'No available connections';
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'database.dart';
+part of 'drift.dart';
 
 // ignore_for_file: type=lint
 class $FtpCredsItemsTable extends FtpCredsItems
@@ -18,6 +18,14 @@ class $FtpCredsItemsTable extends FtpCredsItems
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
   static const VerificationMeta _serverMeta = const VerificationMeta('server');
   @override
   late final GeneratedColumn<String> server = GeneratedColumn<String>(
@@ -36,7 +44,8 @@ class $FtpCredsItemsTable extends FtpCredsItems
       'password', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, server, username, password];
+  List<GeneratedColumn> get $columns =>
+      [id, createdAt, server, username, password];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -49,6 +58,10 @@ class $FtpCredsItemsTable extends FtpCredsItems
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
     if (data.containsKey('server')) {
       context.handle(_serverMeta,
@@ -79,6 +92,8 @@ class $FtpCredsItemsTable extends FtpCredsItems
     return FtpCredsItem(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
       server: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}server'])!,
       username: attachedDatabase.typeMapping
@@ -96,11 +111,13 @@ class $FtpCredsItemsTable extends FtpCredsItems
 
 class FtpCredsItem extends DataClass implements Insertable<FtpCredsItem> {
   final int id;
+  final DateTime createdAt;
   final String server;
   final String username;
   final String password;
   const FtpCredsItem(
       {required this.id,
+      required this.createdAt,
       required this.server,
       required this.username,
       required this.password});
@@ -108,6 +125,7 @@ class FtpCredsItem extends DataClass implements Insertable<FtpCredsItem> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    map['created_at'] = Variable<DateTime>(createdAt);
     map['server'] = Variable<String>(server);
     map['username'] = Variable<String>(username);
     map['password'] = Variable<String>(password);
@@ -117,6 +135,7 @@ class FtpCredsItem extends DataClass implements Insertable<FtpCredsItem> {
   FtpCredsItemsCompanion toCompanion(bool nullToAbsent) {
     return FtpCredsItemsCompanion(
       id: Value(id),
+      createdAt: Value(createdAt),
       server: Value(server),
       username: Value(username),
       password: Value(password),
@@ -128,6 +147,7 @@ class FtpCredsItem extends DataClass implements Insertable<FtpCredsItem> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return FtpCredsItem(
       id: serializer.fromJson<int>(json['id']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       server: serializer.fromJson<String>(json['server']),
       username: serializer.fromJson<String>(json['username']),
       password: serializer.fromJson<String>(json['password']),
@@ -138,6 +158,7 @@ class FtpCredsItem extends DataClass implements Insertable<FtpCredsItem> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
       'server': serializer.toJson<String>(server),
       'username': serializer.toJson<String>(username),
       'password': serializer.toJson<String>(password),
@@ -145,9 +166,14 @@ class FtpCredsItem extends DataClass implements Insertable<FtpCredsItem> {
   }
 
   FtpCredsItem copyWith(
-          {int? id, String? server, String? username, String? password}) =>
+          {int? id,
+          DateTime? createdAt,
+          String? server,
+          String? username,
+          String? password}) =>
       FtpCredsItem(
         id: id ?? this.id,
+        createdAt: createdAt ?? this.createdAt,
         server: server ?? this.server,
         username: username ?? this.username,
         password: password ?? this.password,
@@ -155,6 +181,7 @@ class FtpCredsItem extends DataClass implements Insertable<FtpCredsItem> {
   FtpCredsItem copyWithCompanion(FtpCredsItemsCompanion data) {
     return FtpCredsItem(
       id: data.id.present ? data.id.value : this.id,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       server: data.server.present ? data.server.value : this.server,
       username: data.username.present ? data.username.value : this.username,
       password: data.password.present ? data.password.value : this.password,
@@ -165,6 +192,7 @@ class FtpCredsItem extends DataClass implements Insertable<FtpCredsItem> {
   String toString() {
     return (StringBuffer('FtpCredsItem(')
           ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
           ..write('server: $server, ')
           ..write('username: $username, ')
           ..write('password: $password')
@@ -173,12 +201,13 @@ class FtpCredsItem extends DataClass implements Insertable<FtpCredsItem> {
   }
 
   @override
-  int get hashCode => Object.hash(id, server, username, password);
+  int get hashCode => Object.hash(id, createdAt, server, username, password);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is FtpCredsItem &&
           other.id == this.id &&
+          other.createdAt == this.createdAt &&
           other.server == this.server &&
           other.username == this.username &&
           other.password == this.password);
@@ -186,17 +215,20 @@ class FtpCredsItem extends DataClass implements Insertable<FtpCredsItem> {
 
 class FtpCredsItemsCompanion extends UpdateCompanion<FtpCredsItem> {
   final Value<int> id;
+  final Value<DateTime> createdAt;
   final Value<String> server;
   final Value<String> username;
   final Value<String> password;
   const FtpCredsItemsCompanion({
     this.id = const Value.absent(),
+    this.createdAt = const Value.absent(),
     this.server = const Value.absent(),
     this.username = const Value.absent(),
     this.password = const Value.absent(),
   });
   FtpCredsItemsCompanion.insert({
     this.id = const Value.absent(),
+    this.createdAt = const Value.absent(),
     required String server,
     required String username,
     required String password,
@@ -205,12 +237,14 @@ class FtpCredsItemsCompanion extends UpdateCompanion<FtpCredsItem> {
         password = Value(password);
   static Insertable<FtpCredsItem> custom({
     Expression<int>? id,
+    Expression<DateTime>? createdAt,
     Expression<String>? server,
     Expression<String>? username,
     Expression<String>? password,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (createdAt != null) 'created_at': createdAt,
       if (server != null) 'server': server,
       if (username != null) 'username': username,
       if (password != null) 'password': password,
@@ -219,11 +253,13 @@ class FtpCredsItemsCompanion extends UpdateCompanion<FtpCredsItem> {
 
   FtpCredsItemsCompanion copyWith(
       {Value<int>? id,
+      Value<DateTime>? createdAt,
       Value<String>? server,
       Value<String>? username,
       Value<String>? password}) {
     return FtpCredsItemsCompanion(
       id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
       server: server ?? this.server,
       username: username ?? this.username,
       password: password ?? this.password,
@@ -235,6 +271,9 @@ class FtpCredsItemsCompanion extends UpdateCompanion<FtpCredsItem> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
     }
     if (server.present) {
       map['server'] = Variable<String>(server.value);
@@ -252,6 +291,7 @@ class FtpCredsItemsCompanion extends UpdateCompanion<FtpCredsItem> {
   String toString() {
     return (StringBuffer('FtpCredsItemsCompanion(')
           ..write('id: $id, ')
+          ..write('createdAt: $createdAt, ')
           ..write('server: $server, ')
           ..write('username: $username, ')
           ..write('password: $password')
@@ -260,20 +300,24 @@ class FtpCredsItemsCompanion extends UpdateCompanion<FtpCredsItem> {
   }
 }
 
-abstract class _$AppDatabase extends GeneratedDatabase {
-  _$AppDatabase(QueryExecutor e) : super(e);
-  $AppDatabaseManager get managers => $AppDatabaseManager(this);
+abstract class _$DriftDb extends GeneratedDatabase {
+  _$DriftDb(QueryExecutor e) : super(e);
+  $DriftDbManager get managers => $DriftDbManager(this);
   late final $FtpCredsItemsTable ftpCredsItems = $FtpCredsItemsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [ftpCredsItems];
+  @override
+  DriftDatabaseOptions get options =>
+      const DriftDatabaseOptions(storeDateTimeAsText: true);
 }
 
 typedef $$FtpCredsItemsTableCreateCompanionBuilder = FtpCredsItemsCompanion
     Function({
   Value<int> id,
+  Value<DateTime> createdAt,
   required String server,
   required String username,
   required String password,
@@ -281,13 +325,14 @@ typedef $$FtpCredsItemsTableCreateCompanionBuilder = FtpCredsItemsCompanion
 typedef $$FtpCredsItemsTableUpdateCompanionBuilder = FtpCredsItemsCompanion
     Function({
   Value<int> id,
+  Value<DateTime> createdAt,
   Value<String> server,
   Value<String> username,
   Value<String> password,
 });
 
 class $$FtpCredsItemsTableFilterComposer
-    extends Composer<_$AppDatabase, $FtpCredsItemsTable> {
+    extends Composer<_$DriftDb, $FtpCredsItemsTable> {
   $$FtpCredsItemsTableFilterComposer({
     required super.$db,
     required super.$table,
@@ -297,6 +342,9 @@ class $$FtpCredsItemsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get server => $composableBuilder(
       column: $table.server, builder: (column) => ColumnFilters(column));
@@ -309,7 +357,7 @@ class $$FtpCredsItemsTableFilterComposer
 }
 
 class $$FtpCredsItemsTableOrderingComposer
-    extends Composer<_$AppDatabase, $FtpCredsItemsTable> {
+    extends Composer<_$DriftDb, $FtpCredsItemsTable> {
   $$FtpCredsItemsTableOrderingComposer({
     required super.$db,
     required super.$table,
@@ -319,6 +367,9 @@ class $$FtpCredsItemsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get server => $composableBuilder(
       column: $table.server, builder: (column) => ColumnOrderings(column));
@@ -331,7 +382,7 @@ class $$FtpCredsItemsTableOrderingComposer
 }
 
 class $$FtpCredsItemsTableAnnotationComposer
-    extends Composer<_$AppDatabase, $FtpCredsItemsTable> {
+    extends Composer<_$DriftDb, $FtpCredsItemsTable> {
   $$FtpCredsItemsTableAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -341,6 +392,9 @@ class $$FtpCredsItemsTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 
   GeneratedColumn<String> get server =>
       $composableBuilder(column: $table.server, builder: (column) => column);
@@ -353,7 +407,7 @@ class $$FtpCredsItemsTableAnnotationComposer
 }
 
 class $$FtpCredsItemsTableTableManager extends RootTableManager<
-    _$AppDatabase,
+    _$DriftDb,
     $FtpCredsItemsTable,
     FtpCredsItem,
     $$FtpCredsItemsTableFilterComposer,
@@ -363,11 +417,11 @@ class $$FtpCredsItemsTableTableManager extends RootTableManager<
     $$FtpCredsItemsTableUpdateCompanionBuilder,
     (
       FtpCredsItem,
-      BaseReferences<_$AppDatabase, $FtpCredsItemsTable, FtpCredsItem>
+      BaseReferences<_$DriftDb, $FtpCredsItemsTable, FtpCredsItem>
     ),
     FtpCredsItem,
     PrefetchHooks Function()> {
-  $$FtpCredsItemsTableTableManager(_$AppDatabase db, $FtpCredsItemsTable table)
+  $$FtpCredsItemsTableTableManager(_$DriftDb db, $FtpCredsItemsTable table)
       : super(TableManagerState(
           db: db,
           table: table,
@@ -379,24 +433,28 @@ class $$FtpCredsItemsTableTableManager extends RootTableManager<
               $$FtpCredsItemsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
             Value<String> server = const Value.absent(),
             Value<String> username = const Value.absent(),
             Value<String> password = const Value.absent(),
           }) =>
               FtpCredsItemsCompanion(
             id: id,
+            createdAt: createdAt,
             server: server,
             username: username,
             password: password,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
             required String server,
             required String username,
             required String password,
           }) =>
               FtpCredsItemsCompanion.insert(
             id: id,
+            createdAt: createdAt,
             server: server,
             username: username,
             password: password,
@@ -409,7 +467,7 @@ class $$FtpCredsItemsTableTableManager extends RootTableManager<
 }
 
 typedef $$FtpCredsItemsTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
+    _$DriftDb,
     $FtpCredsItemsTable,
     FtpCredsItem,
     $$FtpCredsItemsTableFilterComposer,
@@ -419,14 +477,14 @@ typedef $$FtpCredsItemsTableProcessedTableManager = ProcessedTableManager<
     $$FtpCredsItemsTableUpdateCompanionBuilder,
     (
       FtpCredsItem,
-      BaseReferences<_$AppDatabase, $FtpCredsItemsTable, FtpCredsItem>
+      BaseReferences<_$DriftDb, $FtpCredsItemsTable, FtpCredsItem>
     ),
     FtpCredsItem,
     PrefetchHooks Function()>;
 
-class $AppDatabaseManager {
-  final _$AppDatabase _db;
-  $AppDatabaseManager(this._db);
+class $DriftDbManager {
+  final _$DriftDb _db;
+  $DriftDbManager(this._db);
   $$FtpCredsItemsTableTableManager get ftpCredsItems =>
       $$FtpCredsItemsTableTableManager(_db, _db.ftpCredsItems);
 }
