@@ -11,7 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i6;
-import 'package:ftp/core/data/storage/drift/ftp.dart' as _i5;
+import 'package:ftp/core/data/storage/drift/drift.dart' as _i5;
 import 'package:ftp/features/connection_list/connection_list_screen.dart'
     as _i1;
 import 'package:ftp/features/connection_new/connection_new_screen.dart' as _i2;
@@ -53,7 +53,7 @@ class ConnectionNewRoute extends _i4.PageRouteInfo<void> {
 /// [_i3.FtpFilesScreen]
 class FtpFilesRoute extends _i4.PageRouteInfo<FtpFilesRouteArgs> {
   FtpFilesRoute({
-    required _i5.FtpCreds ftpCreds,
+    required _i5.FtpCredsItem ftpCreds,
     _i6.Key? key,
     List<_i4.PageRouteInfo>? children,
   }) : super(
@@ -78,7 +78,7 @@ class FtpFilesRoute extends _i4.PageRouteInfo<FtpFilesRouteArgs> {
 class FtpFilesRouteArgs {
   const FtpFilesRouteArgs({required this.ftpCreds, this.key});
 
-  final _i5.FtpCreds ftpCreds;
+  final _i5.FtpCredsItem ftpCreds;
 
   final _i6.Key? key;
 

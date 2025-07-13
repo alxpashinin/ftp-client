@@ -18,5 +18,5 @@ final class ConnectionListSuccess extends ConnectionListState {
     required this.ftpCredits,
   });
 
-  final List<FtpCreds> ftpCredits;
+  final List<FtpCredsItem> ftpCredits;
 }

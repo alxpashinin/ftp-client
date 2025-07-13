@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftp/core/data/ftp/ftp_client.dart';
-import 'package:ftp/core/data/storage/drift/ftp.dart';
+import 'package:ftp/core/data/storage/ftp.dart';
 
 part 'connection_new_event.dart';
 part 'connection_new_state.dart';
@@ -31,9 +31,11 @@ final class ConnectionNewBloc
     ) = event;
 
     final result = await ftpClient.connect(
-      server: server,
-      username: username,
-      password: password,
+      credsRecord: (
+        server: server,
+        username: username,
+        password: password,
+      ),
     );
 
     switch (result) {

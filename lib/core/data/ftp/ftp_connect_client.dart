@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:ftp/core/data/ftp/ftp_client.dart';
+import 'package:ftp/core/data/storage/drift/drift.dart';
 import 'package:ftp/core/utils/logger.dart';
 import 'package:ftpconnect/ftpconnect.dart';
 
@@ -9,10 +10,20 @@ final class FtpConnectClient implements FtpClient {
 
   @override
   Future<FtpConnectResult> connect({
-    required String server,
-    required String username,
-    required String password,
+    FtpCredsItem? creds,
+    FtpCredsRecord? credsRecord,
   }) async {
+    assert(
+      creds != null || credsRecord != null,
+      '[creds] or [connectFtpCreds] must not be null',
+    );
+
+    final (server, username, password) = (
+      creds?.server ?? credsRecord!.server,
+      creds?.username ?? credsRecord!.username,
+      creds?.password ?? credsRecord!.password,
+    );
+
     try {
       _ftpConnect = FTPConnect(
         server,
@@ -22,7 +33,7 @@ final class FtpConnectClient implements FtpClient {
         timeout: 5,
       );
 
-      logger.i('[FtpClientImpl.connect()] connecting to $server');
+      logger.i('[FtpClientImpl.connect()] connecting to ${server}');
       return await _ftpConnect!.connect()
           ? FtpConnectResult.success
           : FtpConnectResult.failure;

@@ -1,5 +1,6 @@
+import 'package:ftp/core/data/ftp/ftp_client.dart';
 import 'package:ftp/core/data/storage/drift/drift.dart';
-import 'package:ftp/core/data/storage/drift/ftp.dart';
+import 'package:ftp/core/data/storage/ftp.dart';
 
 final class StorageRepository implements FtpStorage {
   StorageRepository({
@@ -8,31 +9,27 @@ final class StorageRepository implements FtpStorage {
 
   final DriftDb driftDb;
 
-  late final _ftpStream = driftDb.managers.ftpCredsItems
-      .watch()
-      .asBroadcastStream()
-      .map((v) => v.map(FtpCreds.fromDrift).toList());
+  late final _ftpStream =
+      driftDb.managers.ftpCredsItems.watch().asBroadcastStream();
 
   @override
-  Stream<List<FtpCreds>> get ftpStream => _ftpStream;
+  Stream<List<FtpCredsItem>> get ftpStream => _ftpStream;
 
   @override
-  Future<List<FtpCreds>> getListFtpCreds() async {
-    final result = await driftDb.managers.ftpCredsItems.get();
-    return result.map(FtpCreds.fromDrift).toList();
-  }
+  Future<List<FtpCredsItem>> getListFtpCreds() async =>
+      await driftDb.managers.ftpCredsItems.get();
 
   @override
-  Future<void> saveFtpCreds(SaveFtpCreds creds) =>
+  Future<void> saveFtpCreds(FtpCredsRecord credsRecord) =>
       driftDb.managers.ftpCredsItems.create(
         (f) => f(
-          server: creds.server,
-          username: creds.username,
-          password: creds.password,
+          server: credsRecord.server,
+          username: credsRecord.username,
+          password: credsRecord.password,
         ),
       );
 
   @override
-  Future<void> deleteFtpCreds(FtpCreds creds) =>
+  Future<void> deleteFtpCreds(FtpCredsItem creds) =>
       driftDb.managers.ftpCredsItems.filter((f) => f.id(creds.id)).delete();
 }

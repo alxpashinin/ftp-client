@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ftp/core/data/storage/drift/ftp.dart';
+import 'package:ftp/core/data/storage/drift/drift.dart';
+import 'package:ftp/core/data/storage/ftp.dart';
 
 part 'connection_list_event.dart';
 part 'connection_list_state.dart';
@@ -22,10 +23,10 @@ final class ConnectionListBloc
 
   final FtpStorage _ftpStorage;
 
-  StreamSubscription<List<FtpCreds>>? _ftpChangedSub;
+  StreamSubscription<List<FtpCredsItem>>? _ftpChangedSub;
 
   Future<void> _onStarted(
-    ConnectionListEvent event,
+    ConnectionListStarted event,
     Emitter<ConnectionListState> emitter,
   ) async {
     emitter(const ConnectionListLoading());

@@ -12,5 +12,5 @@ final class ConnectionListStarted extends ConnectionListEvent {
 final class ConnectionListFtpChanged extends ConnectionListEvent {
   ConnectionListFtpChanged({required this.newCreds});
 
-  final List<FtpCreds> newCreds;
+  final List<FtpCredsItem> newCreds;
 }

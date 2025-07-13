@@ -3,6 +3,7 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'drift.g.dart';
+part 'ftp_creds_table.dart';
 
 @DriftDatabase(tables: [FtpCredsItems])
 class DriftDb extends _$DriftDb {
@@ -25,10 +26,4 @@ mixin TableMixin on Table {
 
   // Column for created at timestamp
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
-}
-
-class FtpCredsItems extends Table with TableMixin {
-  TextColumn get server => text()();
-  TextColumn get username => text()();
-  TextColumn get password => text()();
 }

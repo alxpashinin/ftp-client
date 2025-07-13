@@ -6,5 +6,7 @@ sealed class FtpFilesEvent {
 }
 
 final class FtpFilesStarted extends FtpFilesEvent {
-  const FtpFilesStarted();
+  FtpFilesStarted({required this.ftpCreds});
+
+  final FtpCredsItem ftpCreds;
 }
