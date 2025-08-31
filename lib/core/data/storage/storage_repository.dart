@@ -1,6 +1,6 @@
 import 'package:ftp/core/data/ftp/ftp_client.dart';
 import 'package:ftp/core/data/storage/drift/drift.dart';
-import 'package:ftp/core/data/storage/ftp.dart';
+import 'package:ftp/core/data/storage/ftp_storage.dart';
 
 final class StorageRepository implements FtpStorage {
   StorageRepository({

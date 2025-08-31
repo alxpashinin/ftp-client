@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftp/core/data/ftp/ftp_client.dart';
-import 'package:ftp/core/data/storage/ftp.dart';
+import 'package:ftp/core/data/storage/ftp_storage.dart';
 
 part 'connection_new_event.dart';
 part 'connection_new_state.dart';

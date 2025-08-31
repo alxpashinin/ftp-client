@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftp/core/data/ftp/ftp_client.dart';
 import 'package:ftp/core/data/storage/storage_repository.dart';
 import 'package:ftp/core/extensions/build_context.dart';
-import 'package:ftp/core/utils/validator.dart';
+import 'package:ftp/core/utils/validators.dart';
 import 'package:ftp/core/widgets/app_bar.dart';
 import 'package:ftp/features/connection_new/bloc/connection_new_bloc.dart';
 
@@ -17,12 +17,12 @@ class ConnectionNewScreen extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) => BlocProvider<ConnectionNewBloc>(
-        create: (context) => ConnectionNewBloc(
-          ftpClient: context.read<FtpClient>(),
-          ftpStorage: context.read<StorageRepository>(),
-        ),
-        child: this,
-      );
+    create: (context) => ConnectionNewBloc(
+      ftpClient: context.read<FtpClient>(),
+      ftpStorage: context.read<StorageRepository>(),
+    ),
+    child: this,
+  );
 }
 
 class _ConnectionNewScreenState extends State<ConnectionNewScreen> {
@@ -100,17 +100,17 @@ class _ConnectionNewScreenState extends State<ConnectionNewScreen> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             context.read<ConnectionNewBloc>().add(
-                                  ConnectionNewSubmitButtonTapped(
-                                    server: _serverTextController.text,
-                                    username: _usernameTextController.text,
-                                    password: _passwordTextController.text,
-                                  ),
-                                );
+                              ConnectionNewSubmitButtonTapped(
+                                server: _serverTextController.text,
+                                username: _usernameTextController.text,
+                                password: _passwordTextController.text,
+                              ),
+                            );
                           }
                         },
                         child: Text(context.loc.buttonTextConnect),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

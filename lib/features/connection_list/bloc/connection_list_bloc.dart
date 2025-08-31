@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftp/core/data/storage/drift/drift.dart';
-import 'package:ftp/core/data/storage/ftp.dart';
+import 'package:ftp/core/data/storage/ftp_storage.dart';
 
 part 'connection_list_event.dart';
 part 'connection_list_state.dart';

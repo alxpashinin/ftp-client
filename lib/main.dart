@@ -21,21 +21,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MultiProvider(
-        providers: [
-          Provider<FtpClient>(
-            create: (context) => FtpConnectClient(),
-          ),
-          Provider<StorageRepository>(
-            create: (context) => StorageRepository(
-              driftDb: DriftDb(),
-            ),
-          ),
-        ],
-        child: MaterialApp.router(
-          routerConfig: _router.config(),
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          theme: basicTheme,
-        ),
-      );
+    providers: [
+      Provider<FtpClient>(create: (context) => FtpConnectClient()),
+      Provider<StorageRepository>(
+        create: (context) => StorageRepository(driftDb: DriftDb()),
+      ),
+    ],
+    child: MaterialApp.router(
+      routerConfig: _router.config(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      theme: basicTheme,
+    ),
+  );
 }

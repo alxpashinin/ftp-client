@@ -22,7 +22,26 @@ class FtpFilesScreen extends StatelessWidget implements AutoRouteWrapper {
           final FtpFilesSuccess state => Scaffold(
               body: CustomScrollView(
                 slivers: [
-                  SliverAppBar(),
+                  SliverAppBar(
+                    title: Text(state.creds.server),
+                  ),
+                  SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 2),
+                    sliver: SliverList.builder(
+                      itemCount: state.files.length,
+                      itemBuilder: (context, index) => ListTile(
+                        title: Text(state.files[index].name),
+                        subtitle: Text(state.files[index].size.toString()),
+                        trailing: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.more_vert,
+                            size: 25,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

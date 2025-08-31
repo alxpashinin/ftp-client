@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:ftp/core/data/ftp/ftp_client.dart';
+import 'package:ftp/core/data/models/ftp_file.dart';
 import 'package:ftp/core/data/storage/drift/drift.dart';
-import 'package:ftp/core/utils/logger.dart';
+import 'package:ftp/core/utils/talker.dart';
 import 'package:ftpconnect/ftpconnect.dart';
 
 /// FTP client implementation, used [FTPConnect]
@@ -31,18 +32,15 @@ final class FtpConnectClient implements FtpClient {
         pass: password,
         showLog: kDebugMode,
         timeout: 5,
-      );
+      )..listCommand = ListCommand.list;
 
-      logger.i('[FtpClientImpl.connect()] connecting to ${server}');
+      talker.info('[FtpClientImpl.connect()] connecting to ${server}');
+
       return await _ftpConnect!.connect()
           ? FtpConnectResult.success
           : FtpConnectResult.failure;
     } on Exception catch (e, st) {
-      logger.e(
-        '[FtpClientImpl.connect()]',
-        error: e,
-        stackTrace: st,
-      );
+      talker.handle(e, st);
 
       return FtpConnectResult.failure;
     }
@@ -56,16 +54,23 @@ final class FtpConnectClient implements FtpClient {
     );
 
     try {
-      logger.i('[FtpClientImpl.disconnect()] disconnecting');
+      talker.info('[FtpClientImpl.disconnect()] disconnecting');
       return await _ftpConnect!.disconnect();
     } on Exception catch (e, st) {
-      logger.e(
-        '[FtpClientImpl.disconnect()]',
-        error: e,
-        stackTrace: st,
-      );
+      talker.info(e, st);
 
       return false;
     }
+  }
+
+  @override
+  Future<List<FtpFile>> getFiles() async {
+    assert(
+      _ftpConnect != null,
+      'Call [FtpClientImpl.connect()] before this method',
+    );
+
+    final result = await _ftpConnect!.listDirectoryContent();
+    return result.map(FtpFile.fromFtpConnect).toList();
   }
 }

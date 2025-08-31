@@ -1,3 +1,4 @@
+import 'package:ftp/core/data/models/ftp_file.dart';
 import 'package:ftp/core/data/storage/drift/drift.dart';
 
 enum FtpConnectResult {
@@ -24,4 +25,7 @@ abstract interface class FtpClient {
   ///
   /// Return [true] is success, overwise return [false]
   Future<bool> disconnect();
+
+  /// Return [List] of [FtpFile] in current directory
+  Future<List<FtpFile>> getFiles();
 }

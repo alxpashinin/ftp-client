@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftp/core/data/ftp/ftp_client.dart';
+import 'package:ftp/core/data/models/ftp_file.dart';
 import 'package:ftp/core/data/storage/drift/drift.dart';
 
 part 'ftp_files_event.dart';
@@ -18,10 +19,18 @@ final class FtpFilesBloc extends Bloc<FtpFilesEvent, FtpFilesState> {
     FtpFilesStarted event,
     Emitter<FtpFilesState> emitter,
   ) async {
-    final result = await _ftpClient.connect(creds: event.ftpCreds);
+    final connectResult = await _ftpClient.connect(creds: event.ftpCreds);
 
-    switch (result) {
+    switch (connectResult) {
       case FtpConnectResult.success:
+        final files = await _ftpClient.getFiles();
+
+        emitter(
+          FtpFilesSuccess(
+            creds: event.ftpCreds,
+            files: files,
+          ),
+        );
       case FtpConnectResult.failure:
     }
   }
