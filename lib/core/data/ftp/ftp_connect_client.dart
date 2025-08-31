@@ -68,8 +68,7 @@ final class FtpConnectClient implements FtpClient {
       return await _ftpConnect!.disconnect();
     } on Exception catch (e, st) {
       talker.info(e, st);
-
-      return false;
+      rethrow;
     }
   }
 

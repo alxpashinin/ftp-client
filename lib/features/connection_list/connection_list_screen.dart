@@ -7,6 +7,7 @@ import 'package:ftp/core/router/app_router.gr.dart';
 import 'package:ftp/core/widgets/app_bar.dart';
 import 'package:ftp/core/widgets/loading_screen.dart';
 import 'package:ftp/features/connection_list/bloc/connection_list_bloc.dart';
+import 'package:ftp/features/connection_list/widgets/connection_list_item.dart';
 
 @RoutePage()
 class ConnectionListScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -24,25 +25,14 @@ class ConnectionListScreen extends StatelessWidget implements AutoRouteWrapper {
             ),
             body: state.ftpCredits.isEmpty
                 ? Center(child: Text(context.loc.connectionListIsEmpty))
-                : Padding(
+                : ListView.builder(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 10,
                     ),
-                    child: CustomScrollView(
-                      slivers: [
-                        SliverList.builder(
-                          itemCount: state.ftpCredits.length,
-                          itemBuilder: (context, index) => ListTile(
-                            onTap: () => context.router.push(
-                              FtpFilesRoute(ftpCreds: state.ftpCredits[index]),
-                            ),
-                            title: Text(state.ftpCredits[index].server),
-                            subtitle: Text(state.ftpCredits[index].username),
-                          ),
-                        ),
-                      ],
-                    ),
+                    itemCount: state.ftpCredits.length,
+                    itemBuilder: (context, index) =>
+                        ConnectionListItem(state.ftpCredits[index]),
                   ),
           ),
           _ => const MyLoadingScreen(),
