@@ -14,3 +14,9 @@ final class ConnectionNewSuccess extends ConnectionNewState {
 
   final FtpConnectResult ftpConnectResult;
 }
+
+final class ConnectionNewFailure extends ConnectionNewState {
+  const ConnectionNewFailure(this.exception);
+
+  final Exception exception;
+}

@@ -100,6 +100,12 @@ abstract class AppLocalizations {
   /// **'Server'**
   String get textFieldHintServer;
 
+  /// No description provided for @textFieldHintPort.
+  ///
+  /// In en, this message translates to:
+  /// **'Port'**
+  String get textFieldHintPort;
+
   /// No description provided for @textFieldHintUsername.
   ///
   /// In en, this message translates to:
@@ -135,6 +141,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No available connections'**
   String get connectionListIsEmpty;
+
+  /// No description provided for @anonymousMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous Mode'**
+  String get anonymousMode;
 }
 
 class _AppLocalizationsDelegate

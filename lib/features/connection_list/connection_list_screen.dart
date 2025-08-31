@@ -17,47 +17,43 @@ class ConnectionListScreen extends StatelessWidget implements AutoRouteWrapper {
       BlocBuilder<ConnectionListBloc, ConnectionListState>(
         builder: (context, state) => switch (state) {
           final ConnectionListSuccess state => Scaffold(
-              appBar: const MyAppBar(),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () => context.router.push(
-                  const ConnectionNewRoute(),
-                ),
-                child: const Icon(Icons.add),
-              ),
-              body: state.ftpCredits.isEmpty
-                  ? Center(child: Text(context.loc.connectionListIsEmpty))
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 10,
-                      ),
-                      child: CustomScrollView(
-                        slivers: [
-                          SliverList.builder(
-                            itemCount: state.ftpCredits.length,
-                            itemBuilder: (context, index) => ListTile(
-                              onTap: () => context.router.push(
-                                FtpFilesRoute(
-                                  ftpCreds: state.ftpCredits[index],
-                                ),
-                              ),
-                              title: Text(state.ftpCredits[index].server),
-                              subtitle: Text(state.ftpCredits[index].username),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+            appBar: const MyAppBar(),
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () => context.router.push(const ConnectionNewRoute()),
             ),
+            body: state.ftpCredits.isEmpty
+                ? Center(child: Text(context.loc.connectionListIsEmpty))
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverList.builder(
+                          itemCount: state.ftpCredits.length,
+                          itemBuilder: (context, index) => ListTile(
+                            onTap: () => context.router.push(
+                              FtpFilesRoute(ftpCreds: state.ftpCredits[index]),
+                            ),
+                            title: Text(state.ftpCredits[index].server),
+                            subtitle: Text(state.ftpCredits[index].username),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
           _ => const MyLoadingScreen(),
         },
       );
 
   @override
   Widget wrappedRoute(BuildContext context) => BlocProvider(
-        create: (context) => ConnectionListBloc(
-          ftpStorage: context.read<StorageRepository>(),
-        )..add(const ConnectionListStarted()),
-        child: this,
-      );
+    create: (context) =>
+        ConnectionListBloc(ftpStorage: context.read<StorageRepository>())
+          ..add(const ConnectionListStarted()),
+    child: this,
+  );
 }

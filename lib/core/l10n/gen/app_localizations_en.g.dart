@@ -12,6 +12,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get textFieldHintServer => 'Server';
 
   @override
+  String get textFieldHintPort => 'Port';
+
+  @override
   String get textFieldHintUsername => 'Username';
 
   @override
@@ -28,4 +31,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get connectionListIsEmpty => 'No available connections';
+
+  @override
+  String get anonymousMode => 'Anonymous Mode';
 }

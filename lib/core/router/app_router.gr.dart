@@ -86,4 +86,14 @@ class FtpFilesRouteArgs {
   String toString() {
     return 'FtpFilesRouteArgs{ftpCreds: $ftpCreds, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! FtpFilesRouteArgs) return false;
+    return ftpCreds == other.ftpCreds && key == other.key;
+  }
+
+  @override
+  int get hashCode => ftpCreds.hashCode ^ key.hashCode;
 }

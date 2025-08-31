@@ -9,10 +9,8 @@ part 'connection_new_state.dart';
 
 final class ConnectionNewBloc
     extends Bloc<ConnectionNewEvent, ConnectionNewState> {
-  ConnectionNewBloc({
-    required this.ftpClient,
-    required this.ftpStorage,
-  }) : super(const ConnectionNewInitial()) {
+  ConnectionNewBloc({required this.ftpClient, required this.ftpStorage})
+    : super(const ConnectionNewInitial()) {
     on<ConnectionNewSubmitButtonTapped>(_onSubmitButtonTapped);
   }
 
@@ -26,30 +24,40 @@ final class ConnectionNewBloc
   ) async {
     final ConnectionNewSubmitButtonTapped(
       :server,
+      :port,
       :username,
       :password,
+      :securityType,
+      :completer,
     ) = event;
 
-    final result = await ftpClient.connect(
-      credsRecord: (
-        server: server,
-        username: username,
-        password: password,
-      ),
-    );
+    try {
+      final result = await ftpClient.connect(
+        credsRecord: (
+          server: server,
+          port: port,
+          username: username,
+          password: password,
+          securityType: securityType,
+        ),
+      );
 
-    switch (result) {
-      case FtpConnectResult.success:
-        await ftpStorage.saveFtpCreds(
-          (
+      switch (result) {
+        case FtpConnectResult.success:
+          await ftpStorage.saveFtpCreds((
             server: server,
+            port: port,
             username: username,
             password: password,
-          ),
-        );
-      default:
-    }
+            securityType: securityType,
+          ));
+        default:
+      }
 
-    emitter(ConnectionNewSuccess(ftpConnectResult: result));
+      completer.complete;
+      emitter(ConnectionNewSuccess(ftpConnectResult: result));
+    } on Exception catch (e) {
+      emitter(ConnectionNewFailure(e));
+    }
   }
 }

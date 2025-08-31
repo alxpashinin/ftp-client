@@ -3,14 +3,13 @@ import 'package:ftp/core/data/storage/drift/drift.dart';
 import 'package:ftp/core/data/storage/ftp_storage.dart';
 
 final class StorageRepository implements FtpStorage {
-  StorageRepository({
-    required this.driftDb,
-  });
+  StorageRepository({required this.driftDb});
 
   final DriftDb driftDb;
 
-  late final _ftpStream =
-      driftDb.managers.ftpCredsItems.watch().asBroadcastStream();
+  late final _ftpStream = driftDb.managers.ftpCredsItems
+      .watch()
+      .asBroadcastStream();
 
   @override
   Stream<List<FtpCredsItem>> get ftpStream => _ftpStream;
@@ -24,8 +23,10 @@ final class StorageRepository implements FtpStorage {
       driftDb.managers.ftpCredsItems.create(
         (f) => f(
           server: credsRecord.server,
+          port: credsRecord.port,
           username: credsRecord.username,
           password: credsRecord.password,
+          securityType: credsRecord.securityType,
         ),
       );
 

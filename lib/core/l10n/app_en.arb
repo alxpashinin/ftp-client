@@ -2,6 +2,8 @@
     "@@locale": "en",
     "textFieldHintServer": "Server",
     "@textFieldHintServer": {},
+    "textFieldHintPort": "Port",
+    "@textFieldHintPort": {},
     "textFieldHintUsername": "Username",
     "@textFieldHintUsername": {},
     "textFieldHintPassword": "Password",
@@ -13,5 +15,7 @@
     "snackBarFTPConnectFailed": "Something got wrong",
     "@snackBarFTPConnectFailed": {},
     "connectionListIsEmpty": "No available connections",
-    "@connectionListIsEmpty": {}
+    "@connectionListIsEmpty": {},
+    "anonymousMode": "Anonymous Mode",
+    "@anonymousMode": {}
 }

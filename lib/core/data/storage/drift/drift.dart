@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:ftp/core/data/ftp/ftp_client.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'drift.g.dart';
@@ -13,11 +14,11 @@ class DriftDb extends _$DriftDb {
   int get schemaVersion => 1;
 
   static QueryExecutor _openConnection() => driftDatabase(
-        name: 'drift_db',
-        native: const DriftNativeOptions(
-          databaseDirectory: getApplicationSupportDirectory,
-        ),
-      );
+    name: 'drift_db',
+    native: const DriftNativeOptions(
+      databaseDirectory: getApplicationSupportDirectory,
+    ),
+  );
 }
 
 mixin TableMixin on Table {

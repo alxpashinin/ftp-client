@@ -19,20 +19,31 @@ final class FtpConnectClient implements FtpClient {
       '[creds] or [connectFtpCreds] must not be null',
     );
 
-    final (server, username, password) = (
+    final (server, port, username, password, securityType) = (
       creds?.server ?? credsRecord!.server,
+      creds?.port ?? credsRecord!.port,
       creds?.username ?? credsRecord!.username,
       creds?.password ?? credsRecord!.password,
+      creds?.securityType ?? credsRecord!.securityType,
     );
 
     try {
-      _ftpConnect = FTPConnect(
-        server,
-        user: username,
-        pass: password,
-        showLog: kDebugMode,
-        timeout: 5,
-      )..listCommand = ListCommand.list;
+      _ftpConnect =
+          FTPConnect(
+              server,
+              port: port,
+              user: username,
+              pass: password,
+              showLog: kDebugMode,
+              timeout: 5,
+              securityType: switch (securityType) {
+                FtpSecurityType.ftp => SecurityType.ftp,
+                FtpSecurityType.ftps => SecurityType.ftps,
+                FtpSecurityType.ftpes => SecurityType.ftpes,
+              },
+            )
+            ..listCommand = ListCommand.list
+            ..transferMode = TransferMode.passive;
 
       talker.info('[FtpClientImpl.connect()] connecting to ${server}');
 
@@ -41,8 +52,7 @@ final class FtpConnectClient implements FtpClient {
           : FtpConnectResult.failure;
     } on Exception catch (e, st) {
       talker.handle(e, st);
-
-      return FtpConnectResult.failure;
+      rethrow;
     }
   }
 
